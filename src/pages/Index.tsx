@@ -12,9 +12,9 @@ const Index = () => {
           {/* Logo */}
           <div className="mb-8">
             <img 
-              src="/img/e9a74832-7159-4fea-a434-5bc769a8d105.jpg" 
+              src="https://cdn.poehali.dev/files/a5e5cf62-6cd6-48e4-a321-87d5b67926a2.jpeg" 
               alt="Unturned Server Logo" 
-              className="w-32 h-32 mx-auto rounded-full border-4 border-primary shadow-2xl shadow-primary/20"
+              className="w-32 h-32 mx-auto rounded-full border-4 border-primary shadow-2xl shadow-primary/20 object-cover"
             />
           </div>
           
