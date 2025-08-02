@@ -48,8 +48,8 @@ const Index = () => {
           {/* Logo */}
           <div className="mb-8">
             <img 
-              src="https://cdn.poehali.dev/files/a5e5cf62-6cd6-48e4-a321-87d5b67926a2.jpeg" 
-              alt="Unturned Server Logo" 
+              src="https://cdn.poehali.dev/files/0910717a-e9d4-423c-b331-b42d59560681.jpg" 
+              alt="AIR WW3 Server Logo" 
               className="w-32 h-32 mx-auto rounded-full border-4 border-primary shadow-2xl shadow-primary/20 object-cover"
             />
           </div>
@@ -209,7 +209,7 @@ const Index = () => {
       <footer className="py-8 border-t border-border">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-muted-foreground">
-            © 2024 Unturned Server. Все права защищены.
+            © 2025 AIR WW3. Все права защищены.
           </p>
         </div>
       </footer>
