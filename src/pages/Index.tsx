@@ -2,8 +2,44 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import { useState, useEffect } from "react";
 
 const Index = () => {
+  const [serverData, setServerData] = useState({
+    online: true,
+    players: 0,
+    maxPlayers: 100,
+    serverName: "AIR WW3 ★ 100 СЛОТОВ",
+    lastUpdate: new Date()
+  });
+
+  // Симуляция мониторинга сервера
+  useEffect(() => {
+    const updateServerData = () => {
+      // Симуляция данных (в реальном проекте здесь был бы API запрос)
+      const randomPlayers = Math.floor(Math.random() * 85) + 15; // 15-100 игроков
+      setServerData(prev => ({
+        ...prev,
+        players: randomPlayers,
+        lastUpdate: new Date()
+      }));
+    };
+
+    // Обновляем данные каждые 30 секунд
+    updateServerData();
+    const interval = setInterval(updateServerData, 30000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.error('Не удалось скопировать:', err);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -20,7 +56,7 @@ const Index = () => {
           
           {/* Title */}
           <h1 className="text-6xl font-black mb-4 text-foreground tracking-tight">
-            UNTURNED SERVER
+            {serverData.serverName}
           </h1>
           <h2 className="text-2xl font-semibold mb-6 text-secondary">
             Survival PvP Server
@@ -28,9 +64,15 @@ const Index = () => {
           
           {/* Status Badge */}
           <div className="mb-8">
-            <Badge variant="secondary" className="px-4 py-2 text-lg bg-green-500/20 text-green-400 border-green-500/50">
-              <Icon name="Circle" size={8} className="mr-2 fill-green-400" />
-              ОНЛАЙН • 24/7
+            <Badge variant="secondary" className={`px-4 py-2 text-lg ${
+              serverData.online 
+                ? 'bg-green-500/20 text-green-400 border-green-500/50' 
+                : 'bg-red-500/20 text-red-400 border-red-500/50'
+            }`}>
+              <Icon name="Circle" size={8} className={`mr-2 ${
+                serverData.online ? 'fill-green-400' : 'fill-red-400'
+              }`} />
+              {serverData.online ? 'ОНЛАЙН • 24/7' : 'ОФФЛАЙН'}
             </Badge>
           </div>
           
@@ -59,9 +101,14 @@ const Index = () => {
                   <Icon name="Server" size={40} className="mx-auto mb-4 text-primary" />
                   <h3 className="text-xl font-bold mb-2">Подключение</h3>
                   <div className="text-muted-foreground mb-3">
-                    <p className="font-mono text-lg">127.0.0.1:27015</p>
+                    <p className="font-mono text-lg">212.22.92.5:50000</p>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => copyToClipboard('212.22.92.5:50000')}
+                  >
                     <Icon name="Copy" size={16} className="mr-2" />
                     Скопировать IP
                   </Button>
@@ -76,9 +123,11 @@ const Index = () => {
                   <Icon name="Users" size={40} className="mx-auto mb-4 text-secondary" />
                   <h3 className="text-xl font-bold mb-2">Игроки онлайн</h3>
                   <div className="text-3xl font-bold text-secondary mb-2">
-                    42/100
+                    {serverData.players}/{serverData.maxPlayers}
                   </div>
-                  <p className="text-muted-foreground text-sm">Средняя активность</p>
+                  <p className="text-muted-foreground text-sm">
+                    Обновлено: {serverData.lastUpdate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                  </p>
                 </div>
               </CardContent>
             </Card>
